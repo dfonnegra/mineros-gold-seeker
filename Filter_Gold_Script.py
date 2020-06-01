@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import sys
 
 # Constants
 GOLD_AREA_THRESHOLD = 70
@@ -43,3 +44,7 @@ def execute_gold_detection(path):
     img_org = cv2.imread(path)
     img_org = cv2.resize(img_org, (640, 480))
     return transform_img_hls(img_org, LOW_H, HIGH_H, LOW_S, LOW_L, HIGH_L, GAMMA)
+
+
+if __name__ == "__main__":
+    execute_gold_detection(sys.argv[0])
