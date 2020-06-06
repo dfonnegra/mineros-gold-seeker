@@ -3,8 +3,8 @@ import numpy as np
 import sys
 
 # Constants
-GOLD_AREA_THRESHOLD = 70
-LOW_H = 12
+GOLD_AREA_THRESHOLD = 90
+LOW_H = 13
 HIGH_H = 19
 LOW_S = 140
 LOW_L = 100
@@ -15,8 +15,8 @@ GAMMA = 2.0
 # Functions
 def evaluate_gold_for_area(img_target, area_threshold):
     has_gold = False
-    img_edged = cv2.Canny(img_target, 30, 200)
-    contours, hierarchy = cv2.findContours(img_edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    _, img_edged = cv2.threshold(img_target[:, :, 2], 1, 255, cv2.THRESH_BINARY)
+    contours, hierarchy = cv2.findContours(img_edged, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     for contour in contours:
         area = cv2.contourArea(contour)
         if area > area_threshold:
